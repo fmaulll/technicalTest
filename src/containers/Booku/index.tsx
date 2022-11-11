@@ -10,9 +10,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import SearchInput from "../../components/SearchInput";
-import { ReactComponent as StarIcon } from "../../assets/StarIcon.svg";
 import { ReactComponent as BookmarkIcon } from "../../assets/BookmarkIcon.svg";
 import Bookmark from "../../components/Bookmark";
+import Books from "../../components/Books";
+import BottomComponent from "../../components/BottomComponent";
 
 const styles = {
   root: {
@@ -31,17 +32,6 @@ const styles = {
     textTransform: "none",
     color: "#606060",
     marginRight: "20px",
-  },
-  bookTitle: {
-    fontFamily: "'Montserrat', sans-serif",
-    fontSize: "18px",
-    fontWeight: 600,
-  },
-  bookDesc: {
-    fontFamily: "'Montserrat', sans-serif",
-    fontSize: "16px",
-    fontWeight: 400,
-    color: "#868686",
   },
   topComponent: {
     marginTop: "30px",
@@ -341,26 +331,7 @@ const Booku: FC = () => {
             {search === "" ? (
               <Grid container justifyContent="center" spacing={8}>
                 {dataBooku?.map((data) => (
-                  <Grid item>
-                    <Box sx={{ width: "200px", position: "relative" }}>
-                      <IconButton
-                        onClick={() => handleAddBookmark(data.id, data.title)}
-                        sx={{ position: "absolute", top: 0, right: 0 }}
-                      >
-                        <StarIcon style={{ fill: "#FFFFFF" }} />
-                      </IconButton>
-                      <img
-                        style={{ width: "200px", borderRadius: "10px" }}
-                        src={data.cover_url}
-                      />
-                      <Typography sx={styles.bookTitle}>
-                        {data.title}
-                      </Typography>
-                      <Typography sx={styles.bookDesc}>
-                        {data.description.slice(0, 20) + "..."}
-                      </Typography>
-                    </Box>
-                  </Grid>
+                  <Books handleAddBookmark={handleAddBookmark} data={data} />
                 ))}
               </Grid>
             ) : (
@@ -368,52 +339,20 @@ const Booku: FC = () => {
                 {dataAllBooku
                   ?.filter((data) => data.title.toLowerCase().includes(search))
                   .map((data) => (
-                    <Grid item>
-                      <Box sx={{ width: "200px", position: "relative" }}>
-                        <IconButton
-                          onClick={() => handleAddBookmark(data.id, data.title)}
-                          sx={{ position: "absolute", top: 0, right: 0 }}
-                        >
-                          <StarIcon style={{ fill: "#FFFFFF" }} />
-                        </IconButton>
-                        <img
-                          style={{ width: "200px", borderRadius: "10px" }}
-                          src={data.cover_url}
-                        />
-                        <Typography sx={styles.bookTitle}>
-                          {data.title}
-                        </Typography>
-                        <Typography sx={styles.bookDesc}>
-                          {data.description.slice(0, 20) + "..."}
-                        </Typography>
-                      </Box>
-                    </Grid>
+                    <Books handleAddBookmark={handleAddBookmark} data={data} />
                   ))}
               </Grid>
             )}
           </Grid>
         </Grid>
       )}
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        sx={{ margin: "30px 0" }}
-      >
-        <Grid item>
-          <Button disabled={disablePrev} onClick={handlePrev}>
-            Prev
-          </Button>
-        </Grid>
-        <Grid item>
-          <Typography>{page}</Typography>
-        </Grid>
-        <Grid item>
-          <Button disabled={disableNext} onClick={handleNext}>
-            Next
-          </Button>
-        </Grid>
-      </Grid>
+      <BottomComponent
+        disableNext={disableNext}
+        disablePrev={disablePrev}
+        handleNext={handleNext}
+        handlePrev={handlePrev}
+        page={page}
+      />
     </div>
   );
 };
