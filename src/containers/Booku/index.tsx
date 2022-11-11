@@ -85,7 +85,6 @@ const Booku: FC = () => {
   const [dataBookmark, setDataBookmark] = useState<bookmarkData[]>([]);
   const [disablePrev, setDisablePrev] = useState<boolean>(false);
   const [disableNext, setDisableNext] = useState<boolean>(false);
-  const [isBookmark, setIsBookmark] = useState<boolean>(false);
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
@@ -220,10 +219,6 @@ const Booku: FC = () => {
     console.log(arr);
     localStorage.setItem("booku", JSON.stringify(arr));
     setDataBookmark(arr);
-  };
-
-  const handleReset = () => {
-    window.location.reload();
   };
 
   useEffect(() => {
