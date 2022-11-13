@@ -51,7 +51,7 @@ const BookuDetail = () => {
     setIsLoading(true);
     try {
       const result = await Axios({
-        url: `/fee-assessment-books?categoryId=${categoryId}&page=0&size=10`,
+        url: `/fee-assessment-books?categoryId=${categoryId}`,
         method: "GET",
       });
       const data: resultDataBooku[] = result.data;
