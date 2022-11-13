@@ -24,7 +24,7 @@ interface Props {
     title: string;
     cover_url: string;
   }[];
-  onClick: (categoryId: number, title: string) => void;
+  onClick: (categoryId: number, id: number) => void;
   onClose: () => void;
   handleDelete: (id: number) => void;
 }
@@ -45,7 +45,7 @@ const Bookmark: FC<Props> = ({
             <MenuItem sx={styles.item} key={book.id}>
               <ListItemIcon
                 sx={{ marginRight: "10px" }}
-                onClick={() => onClick(book.category_id, book.title)}
+                onClick={() => onClick(book.category_id, book.id)}
               >
                 <img
                   style={{ width: "50px" }}

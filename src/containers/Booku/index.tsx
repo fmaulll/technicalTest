@@ -193,8 +193,6 @@ const Booku: FC = () => {
     setAnchorEl(null);
   };
 
-  const handleClickBookmark = (categoryId: number, title: string) => {};
-
   const handleAddBookmark = (id: number, title: string) => {
     const arr = JSON.parse(String(Array(localStorage.getItem("booku"))));
     const data = dataAllBooku.find((item) => item.id === id);
@@ -279,7 +277,7 @@ const Booku: FC = () => {
             <Bookmark
               anchorEl={anchorEl}
               books={dataBookmark}
-              onClick={handleClickBookmark}
+              onClick={onClickBooku}
               onClose={handleCloseBookmark}
               handleDelete={handleDeleteBookmark}
             />
