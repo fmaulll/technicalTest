@@ -14,6 +14,7 @@ import { ReactComponent as BookmarkIcon } from "../../assets/BookmarkIcon.svg";
 import Bookmark from "../../components/Bookmark";
 import Books from "../../components/Books";
 import BottomComponent from "../../components/BottomComponent";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   root: {
@@ -57,7 +58,7 @@ type resultDataBooku = {
   sections: {
     title: string;
     content: string;
-  }[];
+  };
 };
 
 type resultData = {
@@ -88,6 +89,7 @@ const Booku: FC = () => {
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
+  const navigate = useNavigate()
 
   const getCategory = async () => {
     setIsLoading(true);
@@ -221,6 +223,10 @@ const Booku: FC = () => {
     setDataBookmark(arr);
   };
 
+  const onClickBooku = (categoryId: number, id: number) => {
+    navigate(`/booku/${categoryId}/${id}`)
+  };
+
   useEffect(() => {
     const data: bookmarkData[] = JSON.parse(
       String(Array(localStorage.getItem("booku")))
@@ -326,7 +332,11 @@ const Booku: FC = () => {
             {search === "" ? (
               <Grid container justifyContent="center" spacing={8}>
                 {dataBooku?.map((data) => (
-                  <Books handleAddBookmark={handleAddBookmark} data={data} />
+                  <Books
+                    handleAddBookmark={handleAddBookmark}
+                    data={data}
+                    onClick={onClickBooku}
+                  />
                 ))}
               </Grid>
             ) : (
@@ -334,7 +344,11 @@ const Booku: FC = () => {
                 {dataAllBooku
                   ?.filter((data) => data.title.toLowerCase().includes(search))
                   .map((data) => (
-                    <Books handleAddBookmark={handleAddBookmark} data={data} />
+                    <Books
+                      handleAddBookmark={handleAddBookmark}
+                      data={data}
+                      onClick={onClickBooku}
+                    />
                   ))}
               </Grid>
             )}
